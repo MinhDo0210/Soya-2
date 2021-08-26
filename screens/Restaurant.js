@@ -96,7 +96,7 @@ const Restaurant = ({navigation}) => {
             <View style={styles.Header}>
                 <View style={styles.Search}>
                     <EvilIcons style={{ padding: 5}} name="search" size={30} color={'black'}/>
-                    <TextInput style={{width: '100%'}} placeholder="Tìm kiếm cửa hàng"/>
+                    <TextInput style={{width: '100%', padding: 0,}} placeholder="Tìm kiếm cửa hàng"/>
                 </View>
                 <Material style={{padding: 10}} name="telegram" size={30} color={'gray'}/>
             </View>
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     },
     Content: {
         flex: 10,
+        backgroundColor: '#D8D8D8',
     },
     Item: {
         padding: 15,

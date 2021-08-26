@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingTop: 0,
         height: 300,
-        flex: 1.5,
+        flex: 1.8,
     },
     Info: {
         height: 110,

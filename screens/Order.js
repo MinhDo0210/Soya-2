@@ -2,10 +2,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { View, Text, ScrollView, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS, images, icons } from '../contants';
 
-import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const DATA = [
@@ -175,21 +174,22 @@ const OrderDelivery = () => {
     );
     return (
         <View style={styles.Content}>
-                <View style={styles.List}>
-                    <View style={styles.ListTitle}>
-                        <Text style={styles.ListText}>Danh mục</Text>
-                    </View>
-                    <FlatList
-                        data={categoryData}
-                        renderItem={renderNew}
-                        keyExtractor={item => item.id}
-                        horizontal={true}
-                    />
+            <View style={styles.List}>
+                <View style={styles.ListTitle}>
+                    <Text style={styles.ListText}>Danh mục</Text>
                 </View>
-                <View style={styles.Order}>
-                    <View style={styles.OrderTitle}>
-                        <Text style={styles.OrderText}>Tất cả các món</Text>
-                    </View>
+                <FlatList
+                    data={categoryData}
+                    renderItem={renderNew}
+                    keyExtractor={item => item.id}
+                    horizontal={true}
+                />
+            </View>
+            <View style={styles.Order}>
+                <View style={styles.OrderTitle}>
+                    <Text style={styles.OrderText}>Tất cả các món</Text>
+                </View>
+                <SafeAreaView>
                     <FlatList
                         style={{ marginTop: 10 }}
                         data={DATA}
@@ -197,8 +197,9 @@ const OrderDelivery = () => {
                         keyExtractor={item => item.id}
                         numColumns={2}
                     />
-                </View>
-    </View>
+                </SafeAreaView>
+            </View>
+        </View>
     );
 };
 
@@ -286,9 +287,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     List: {
-        flex: 1,
-        borderBottomWidth: 4,
-        borderBottomColor: '#D8D8D8',
+        flex: 1.1,
     },
     ListTitle: {
         flexDirection: 'row',
@@ -298,6 +297,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         padding: 10,
+        paddingBottom: 0,
     },
     Order: {
         flex: 3.8,
