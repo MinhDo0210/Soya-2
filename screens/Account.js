@@ -151,6 +151,16 @@ export default function Account() {
                         (Thời gian từ 08:00 đến 22:00)
                     </Text>
                     <TouchableOpacity style={styles.BtnLienHe}>
+                        <Image
+                            source={{uri: 'https://soyagarden.com/content/uploads/2019/10/690x0w.png'}}
+                            resizeMode="contain"
+                            style={{
+                                width: 65,
+                                height: 65,
+                                position: 'absolute',
+                                top: -65,
+                            }}
+                        />
                         <Text style={styles.TxtLienHe}>Liên hệ CSKH: 19002255</Text>
                     </TouchableOpacity>
                 </View>
@@ -237,6 +247,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fed734',
         alignItems: 'center',
         justifyContent: 'space-around',
+        marginTop: 60,
         margin: 15,
         borderRadius: 10,
     },
