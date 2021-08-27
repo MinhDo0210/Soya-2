@@ -10,6 +10,7 @@ import {
   AccountScreen,
   DetaltRestScreen,
   OrderScreen,
+  LoginScreen,
 } from './screens';
 
 import Feather from 'react-native-vector-icons/Feather';
@@ -70,6 +71,7 @@ function AccountStackScreen() {
       initialRouteName={'Account'}
     >
       <RestStack.Screen name="Account" options={{ title: 'Khác' }} component={AccountScreen} />
+      <RestStack.Screen name="Login"  component={LoginScreen} />
     </RestStack.Navigator>
   );
 }

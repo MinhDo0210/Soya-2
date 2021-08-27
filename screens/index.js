@@ -7,6 +7,7 @@ import MessageScreen from './Message';
 import AccountScreen from './Account';
 import DetaltRestScreen from './DetaltRest';
 import OrderScreen from './Order';
+import LoginScreen from './Login';
 
 export {
     HomeScreen,
@@ -15,6 +16,7 @@ export {
     AccountScreen,
     DetaltRestScreen,
     OrderScreen,
+    LoginScreen,
     // OrderDeliveryScreen,
     // DefaultRestScreen,
 };

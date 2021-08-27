@@ -13,7 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function Account() {
+export default function Account({navigation}) {
     return (
         <View style={styles.Container}>
             <ScrollView>
@@ -133,7 +133,10 @@ export default function Account() {
                         <Entypo style={{paddingTop: 10}} name="chevron-small-right" size={30} color="gray" />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.Btn}>
+                <TouchableOpacity
+                    style={styles.Btn}
+                    onPress = {() => navigation.navigate('Login')}
+                >
                     <View style={styles.Icons}>
                         <Material name="logout" color={'black'} size={25} />
                     </View>
