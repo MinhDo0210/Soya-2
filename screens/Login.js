@@ -6,11 +6,11 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'reac
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Simple from 'react-native-vector-icons/SimpleLineIcons';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function Login() {
     return (
-        <View style={styles.Container}>
+        <LinearGradient colors={['white', '#e6fcbb']} style={styles.Container}>
             <View style={styles.Banner}>
                 <Image
                     source={require('../assets/images/banner.png')}
@@ -29,7 +29,7 @@ export default function Login() {
                 <View style={styles.LogPhone}>
                     <Text style={{color: 'gray'}}>Hoặc đăng nhập bằng</Text>
                     <View style={styles.Phone}>
-                        <Simple name="screen-smartphone" size={20} color="#68ac44" />
+                        <Simple name="screen-smartphone" size={20} color="#026609" />
                         <TextInput
                             placeholder="Số điện thoại"
                         />
@@ -41,7 +41,7 @@ export default function Login() {
                 <View style={styles.Dk}>
                     <Text style={styles.TxtDk}>
                         Bằng việc đăng nhập, bạn đã đồng ý với
-                        <Text style={{color: '#68ac44', textDecorationLine: 'underline'}}> Điều khoản sử dụng </Text>
+                        <Text style={{color: '#026609', textDecorationLine: 'underline'}}> Điều khoản sử dụng </Text>
                         của Soya Garden
                     </Text>
                 </View>
@@ -50,7 +50,7 @@ export default function Login() {
                 </TouchableOpacity>
                 <Text style={{color: 'black', textAlign: 'center', padding: 10,}}>Phiên bản 1.1.4</Text>
             </View>
-        </View>
+        </LinearGradient>
     );
 }
 
