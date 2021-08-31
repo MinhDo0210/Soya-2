@@ -64,8 +64,8 @@ const Restaurant = ({navigation}) => {
                     <Image
                         style={{
                             height: 170,
-                            borderTopLeftRadius: 15,
-                            borderTopRightRadius: 15,
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
                         }}
                         source={{uri: item.image}}
                     />
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         flex: 0.9,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        borderBottomWidth: 15,
+        borderBottomWidth: 10,
         borderBottomColor: '#D8D8D8',
     },
     Search: {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         flexDirection: 'row',
         top: 8,
-        left: 9,
+        left: -5,
         borderRadius: 9,
         backgroundColor: '#fed734',
         justifyContent: 'center',

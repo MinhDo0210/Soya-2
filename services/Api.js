@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'https://api.thecoffeehouse.com/',
-    timeout: 6000,
+    timeout: 1000,
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
