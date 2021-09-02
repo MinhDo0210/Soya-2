@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import { FlatList } from 'react-native-gesture-handler';
@@ -10,53 +10,24 @@ import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const DATA = [
-    {
-        id: '1',
-        name: 'Soya Garden – Hồ Đắc Di',
-        address: 'Số 3 Hồ Đắc Di, Quận Đống Đa, Hà Nội',
-        phone: '0776 333 693',
-        image: 'https://soyagarden.com/content/uploads/2019/10/70954832_3052108371530799_3695167124474429440_n.jpg',
-    },
-    {
-        id: '2',
-        name: 'Soya Garden – Rainbow Linh Đàm',
-        address: 'Tòa Nhà Rainbow, Hoàng Mai, Hà Nội',
-        phone: '0776 333 693',
-        image: 'https://soyagarden.com/content/uploads/2019/09/Linh-Đàm-1.jpg',
-    },
-    {
-        id: '3',
-        name: 'Soya Garden – Nguyễn Thị Định',
-        address: 'Lô NV - B27 Khu Trung Hòa Nhân Chính',
-        phone: '0776 333 693',
-        image: 'https://soyagarden.com/content/uploads/2019/09/76705191_3239231329485168_6957166658045607936_o.jpg',
-    },
-    {
-        id: '4',
-        name: 'Soya Garden – Hồ Đắc Di',
-        address: 'Số 3 Hồ Đắc Di, Quận Đống Đa, Hà Nội',
-        phone: '0776 333 693',
-        image: 'https://soyagarden.com/content/uploads/2019/09/Tada-3.jpg',
-    },
-];
+import {getRestaurantList} from '../services/Api';
 
 const Restaurant = ({navigation}) => {
-    const Name = ({name}) => (
-        <View>
-            <Text style={{fontSize: 18, fontWeight: 'bold' }}>{name}</Text>
-        </View>
-    );
-    const Address = ({address}) => (
-        <View>
-            <Text style={{fontSize: 16, color: 'gray', paddingLeft: 3 }}>{address}</Text>
-        </View>
-    );
-    const Phone = ({phone}) => (
-        <View>
-            <Text style={{fontSize: 16, color: 'gray', paddingLeft: 8}}>{phone}</Text>
-        </View>
-    );
+    const [restaurant, setRestaurant] = useState([]);
+
+    useEffect(() => {
+		const callGetRestaurantList = async () => {
+			try {
+				const response = await getRestaurantList();
+				setRestaurant(response.data);
+
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		callGetRestaurantList();
+	}, []);
+
     const renderItem = ({ item }) => (
         <View style={styles.Item}>
             <TouchableOpacity onPress={() => navigation.navigate('Details')}>
@@ -67,20 +38,32 @@ const Restaurant = ({navigation}) => {
                             borderTopLeftRadius: 10,
                             borderTopRightRadius: 10,
                         }}
-                        source={{uri: item.image}}
+                        source={{uri: item.image_1}}
                     />
                 </View>
                 <View style={styles.Info}>
                     <View>
-                        <Name name={item.name}/>
+                        <Text style={{fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
                     </View>
                     <View style={styles.InfoText}>
                         <Ionicons name="ios-location-outline" size={20} color={'black'}/>
-                        <Address address={item.address}/>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 16, color: 'gray',
+                                    paddingLeft: 3,
+                                }}
+                                ellipsizeMode="tail" numberOfLines={1}
+                            >
+                                {item.address.full_address}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.InfoText}>
                         <Feather name="phone-call" size={17} color={'black'}/>
-                        <Phone phone={item.phone}/>
+                        <View>
+                            <Text style={{fontSize: 16, color: 'gray', paddingLeft: 8}}>{item.phone}</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={styles.Time}>
@@ -102,7 +85,7 @@ const Restaurant = ({navigation}) => {
             </View>
             <View style={styles.Content}>
                 <FlatList
-                    data={DATA}
+                    data={restaurant}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                 />

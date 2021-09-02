@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     Time: {
-        width: '70%',
+        width: '75%',
         flexDirection: 'row',
         borderRadius: 9,
         backgroundColor: '#fed734',

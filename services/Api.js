@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://api.thecoffeehouse.com/',
+    baseURL: 'https://api.thecoffeehouse.com/api/',
     timeout: 1000,
     headers: {
         Accept: 'application/json',
@@ -10,6 +10,10 @@ const instance = axios.create({
     },
 });
 
-export const getProductList = () => instance.get('api/v2/menu');
+export const getProductList = () => instance.get('v2/menu');
 
-export const getCategoryList = () => instance.get('api/v2/category/web');
+export const getCategoryList = () => instance.get('v2/category/web');
+
+export const getRestaurantList = () => instance.get('get_all_store');
+
+export const login = (params) => instance.post('verify_mobile', params);
