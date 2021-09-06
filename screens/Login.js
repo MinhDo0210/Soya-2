@@ -12,10 +12,12 @@ import Modal from 'react-native-modal';
 
 import {login} from '../services/Api';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 const {height, width} = Dimensions.get('window');
 
 export default function Login({navigation}) {
-    const [phone, setPhone] = useState('0355736598');
+    const [phone, setPhone] = useState('');
     const [code, setCode] = useState();
     const [isVisible, setIsVisible] = useState(false);
 
@@ -24,14 +26,15 @@ export default function Login({navigation}) {
     const onCloseModal = () => setIsVisible(false);
 
     const onVerifyPhone = async () => {
-    try {
-        const response = await login({phone: phone});
-        console.log('rs', response.data.data); // data tu api tra ve
-        setIsVisible(true); // // hien thi modal nhap code len
-    } catch (error) {
-        console.error(error.response);
-    }
-};
+        try {
+            const response = await login({phone: phone});
+            console.log('rs', response.data.data); // data tu api tra ve
+            setIsVisible(true); // // hien thi modal nhap code len
+        }
+        catch (error) {
+            console.error(error.response);
+        }
+    };
 
     const onVerifyCode = async () => {
         try {
@@ -39,10 +42,19 @@ export default function Login({navigation}) {
             console.log('rs', response.data); // data tu api tra ve
             setIsVisible(false); // an modal nhap code di
             // save lai token
-            navigation.navigate('Trang chủ');
-        } catch (error) {
+            navigation.navigate('Info');
+        }
+        catch (error) {
             console.error(error.response);
         }
+    };
+
+    const dispatch = useDispatch();
+
+    const onSend = () => {
+        dispatch(
+            {type: 'SEND_PHONE', data: phone},
+        );
     };
 
     return (
@@ -112,6 +124,7 @@ export default function Login({navigation}) {
                         borderRadius: 5,
                         marginTop: 20,
                         width: '100%',
+                        textAlign: 'center',
                         }}
                         placeholder="Mã xác thực"
                         onChangeText={onChangeCode}

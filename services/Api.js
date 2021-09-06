@@ -17,3 +17,5 @@ export const getCategoryList = () => instance.get('v2/category/web');
 export const getRestaurantList = () => instance.get('get_all_store');
 
 export const login = (params) => instance.post('verify_mobile', params);
+
+

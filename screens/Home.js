@@ -14,6 +14,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 const DATA = [
     {
         id: '1',
@@ -91,16 +93,21 @@ const DATA2 = [
 ];
 
 const Home = ({ navigation }) => {
+
+    const listGift = useSelector((store) => store.infoReducer.items);
+
     const Name = ({ name }) => (
 		<View style={{flex: 1, width: 250}}>
 			<Text style={{ fontSize: 16, paddingLeft: 15, fontWeight: 'bold' }}>{name}</Text>
 		</View>
 	);
+
     const Price = ({ price }) => (
 		<View style={{flex: 1, paddingBottom: 10}}>
 			<Text style={{ fontSize: 14, paddingLeft: 15, color: 'gray'}}>{price}</Text>
 		</View>
 	);
+
     const renderItem = ({item}) => (
         <View style={{height: 225}}>
             <View style={{height: 170 }}>
@@ -151,7 +158,11 @@ const Home = ({ navigation }) => {
                         />
                     </View>
                     <View style={styles.Info}>
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Minh Gol</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                            {listGift.map((e, i) => (
+                                <Text key={i}>{e}</Text>
+                            ))}
+                        </Text>
                         <View style={{ flexDirection: 'row', marginTop: 5 }}>
                             <Image
                                 source={{uri: 'https://soyagarden.com/content/uploads/2019/10/ic_dau-vang_53px@3x.png'}}

@@ -11,11 +11,19 @@ import {
   DetaltRestScreen,
   OrderScreen,
   LoginScreen,
+  InfoScreen,
 } from './screens';
 
 import Feather from 'react-native-vector-icons/Feather';
 import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import allReducers from './reducers';
+
+let store = createStore(allReducers);
 
 const Tab = createBottomTabNavigator();
 
@@ -72,58 +80,61 @@ function AccountStackScreen() {
     >
       <RestStack.Screen name="Account" options={{ title: 'Khác' }} component={AccountScreen} />
       <RestStack.Screen name="Login"  component={LoginScreen} />
+      <RestStack.Screen name="Info" options={{ title: 'Thông tin cá nhân' }} component={InfoScreen} />
     </RestStack.Navigator>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: '#68ac44',
-        }}
-        initialRouteName={'Trang chủ'}
-      >
-        <Tab.Screen
-          name="Trang chủ"
-          component={HomeStackScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Material name="home" color={color} size={25} />
-            ),
+    <Provider store={store}>
+      <NavigationContainer initialRouteName={'Login'}>
+        <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: '#68ac44',
           }}
-        />
-        <Tab.Screen
-          name="Cửa hàng"
-          component={RestStackScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Material name="storefront-outline" color={color} size={25} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Thông báo"
-          component={MessageStackScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Feather name="bell" color={color} size={25} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Khác"
-          component={AccountStackScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="dots-three-horizontal" color={color} size={25} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+          initialRouteName={'Trang chủ'}
+        >
+          <Tab.Screen
+            name="Trang chủ"
+            component={HomeStackScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Material name="home" color={color} size={25} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Cửa hàng"
+            component={RestStackScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Material name="storefront-outline" color={color} size={25} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Thông báo"
+            component={MessageStackScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Feather name="bell" color={color} size={25} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Khác"
+            component={AccountStackScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Entypo name="dots-three-horizontal" color={color} size={25} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

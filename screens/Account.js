@@ -13,11 +13,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { useSelector } from 'react-redux';
+
 export default function Account({navigation}) {
+
+    const listGift = useSelector((store) => store.infoReducer.items);
+
     return (
         <View style={styles.Container}>
             <ScrollView>
-                <TouchableOpacity style={styles.Btn}>
+                <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate('Info')}>
                     <View style={styles.Avt}>
                         <Image
                             source={images.avatar_5}
@@ -29,7 +34,11 @@ export default function Account({navigation}) {
                         />
                     </View>
                     <View style={styles.Text1}>
-                        <Text style={styles.Text2}>Đỗ Quang Minh</Text>
+                        <Text style={styles.Text2}>
+                            {listGift.map((e, i) => (
+                                <Text key={i}>{e}</Text>
+                            ))}
+                        </Text>
                         <Text style={styles.Text3}>0355736587</Text>
                     </View>
                     <View>
