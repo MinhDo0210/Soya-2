@@ -12,6 +12,7 @@ import {
   OrderScreen,
   LoginScreen,
   InfoScreen,
+  CartScreen,
 } from './screens';
 
 import Feather from 'react-native-vector-icons/Feather';
@@ -48,11 +49,12 @@ function RestStackScreen() {
       screenOptions={{
         headerShown: true,
       }}
-      initialRouteName={'Restaurant'}
+      initialRouteName={'Details'}
     >
       <RestStack.Screen name="Restaurant" component={RestaurantScreen} />
       <RestStack.Screen name="Details"  options={{ title: 'Chi tiết cửa hàng' }} component={DetaltRestScreen} />
       <RestStack.Screen name="Order" options={{ title: 'Soya Garden – Rainbow Linh Đàm' }} component={OrderScreen} />
+      <RestStack.Screen name="Cart" options={{ title: 'Đơn hàng' }} component={CartScreen} />
     </RestStack.Navigator>
   );
 }

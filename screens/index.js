@@ -9,6 +9,7 @@ import DetaltRestScreen from './DetaltRest';
 import OrderScreen from './Order';
 import LoginScreen from './Login';
 import InfoScreen from './Info';
+import CartScreen from './Cart';
 
 export {
     HomeScreen,
@@ -19,6 +20,7 @@ export {
     OrderScreen,
     LoginScreen,
     InfoScreen,
+    CartScreen,
     // OrderDeliveryScreen,
     // DefaultRestScreen,
 };

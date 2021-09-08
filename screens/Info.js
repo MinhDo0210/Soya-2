@@ -12,13 +12,10 @@ export default function Info({navigation}) {
     const [date, setDate] = useState('');
     const [address, setAddress] = useState('');
 
-    const onSend = () => {
-        navigation.navigate('Info');
+    const onSend = (item) => {
+        navigation.navigate('Trang chủ');
         dispatch(
             {type: 'SEND_NAME', data: name},
-            {type: 'SEND_EMAIL', data: email},
-            {type: 'SEND_DATE', data: date},
-            {type: 'SEND_ADDRESS', data: address},
         );
     };
 

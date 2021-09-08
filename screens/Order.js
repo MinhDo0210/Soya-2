@@ -1,18 +1,29 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
-import { View, Text, ScrollView, SafeAreaView, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, FlatList, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { COLORS, images, icons } from '../contants';
+import { useSelector, useDispatch } from 'react-redux';
+import Modal from 'react-native-modal';
 
 import { getProductList, getCategoryList } from '../services/Api';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const OrderDelivery = ({navigation}) => {
+const {height, width} = Dimensions.get('window');
+
+const OrderDelivery = ({navigation,props}) => {
+    const dispatch = useDispatch();
+
     const [product, setProduct] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [categories, setCategories] = useState([]);
+    // const [isVisible, setIsVisible] = useState(false);
+    // const onCloseModal = () => setIsVisible(false);
 
     useEffect(() => {
 		const callGetProductList = async () => {
@@ -46,6 +57,12 @@ const OrderDelivery = ({navigation}) => {
 
         setSelectedCategory(category);
     }
+
+    const onSend = (item) => () => {
+        dispatch(
+            {type: 'ADD_CART', data: item},
+        );
+    };
 
     const renderNew = ({item}) => (
         <View style={{ height: 90, paddingLeft: 10, paddingTop: 10}}>
@@ -84,7 +101,7 @@ const OrderDelivery = ({navigation}) => {
         </View>
     );
     const renderItem = ({item}) => (
-        <View style={{ height: 270, paddingLeft: 15 }}>
+        <TouchableOpacity style={{ height: 270, paddingLeft: 15 }}>
             <View style={{height: 180 }}>
                 <Image
                 style={{
@@ -112,10 +129,12 @@ const OrderDelivery = ({navigation}) => {
                     <Text style={{ width: 150, fontSize: 14, paddingTop: 5, paddingBottom: 15, color: 'gray'}}>
                         {item.price}
                     </Text>
-                    <AntDesign name="pluscircle" size={23} color={'#fed734'}/>
+                    <TouchableOpacity onPress={onSend(item)}>
+                        <AntDesign name="pluscircle" size={23} color={'#fed734'}/>
+                    </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
     return (
         <View style={styles.Content}>
@@ -133,6 +152,9 @@ const OrderDelivery = ({navigation}) => {
             <View style={styles.Order}>
                 <View style={styles.OrderTitle}>
                     <Text style={styles.OrderText}>Tất cả các món</Text>
+                    <TouchableOpacity style={styles.BtnCart} onPress={() => navigation.navigate('Cart')}>
+                        <AntDesign name="shoppingcart" size={25} color={'#68ac44'}/>
+                    </TouchableOpacity>
                 </View>
                 <SafeAreaView>
                     <FlatList
@@ -144,6 +166,28 @@ const OrderDelivery = ({navigation}) => {
                     />
                 </SafeAreaView>
             </View>
+            {/* <Modal
+                testID={'modal'}
+                isVisible={isVisible}
+                onSwipeComplete={onCloseModal}
+                swipeDirection={['up', 'left', 'right', 'down']}
+                style={{justifyContent: 'flex-end', margin: 0}}>
+                <View style={styles.content}>
+                    <TouchableOpacity style={styles.closeBtn} onPress={onCloseModal}>
+                        <Ionicons name="close" size={30} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.BtnSendCode} onPress={onAdd(item)}>
+                        <Text style={styles.TxtSendCode}>
+                            Thêm vào giỏ hàng
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.BtnSendCode}>
+                        <Text style={styles.TxtSendCode}>
+                            Mua ngay
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal> */}
         </View>
     );
 };
@@ -274,6 +318,46 @@ const styles = StyleSheet.create({
     Tabtxt: {
         color: 'gray',
     },
+    BtnCart: {
+        padding: 10,
+    },
+    // content: {
+    //     backgroundColor: 'white',
+    //     padding: 22,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     borderRadius: 4,
+    //     borderColor: 'rgba(0, 0, 0, 0.1)',
+    //     height: 180,
+    // },
+    // contentTitle: {
+    //     fontSize: 20,
+    //     marginBottom: 12,
+    // },
+    // closeBtn: {
+    //     position: 'absolute',
+    //     top: 10,
+    //     right: 10,
+    // },
+    // TxtCode: {
+    //     fontSize: 20,
+    //     fontWeight: 'bold',
+    //     color: '#68ac44',
+    // },
+    // BtnSendCode: {
+    //     width: '100%',
+    //     alignItems: 'center',
+    //     height: 45,
+    //     marginTop: 20,
+    //     backgroundColor: '#fed734',
+    //     justifyContent: 'center',
+    //     borderRadius: 7,
+    // },
+    // TxtSendCode: {
+    //     fontWeight: 'bold',
+    //     fontSize: 16,
+    //     textTransform: 'uppercase',
+    // },
 });
 
 export default OrderDelivery;
