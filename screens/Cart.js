@@ -24,6 +24,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 export default function Cart({navigation}) {
+    const dispatch = useDispatch();
     const [name, setName] = useState('Đỗ Quang Minh');
     const [phone, setPhone] = useState('0355736587');
     const [address, setAddress] = useState('');
@@ -31,12 +32,22 @@ export default function Cart({navigation}) {
 
     const productList = useSelector((store) => store.cartReducer.products);
 
-    const onChangeQuantity = () => {
-
+    const onChangeQuantity = (item) => () => {
+        dispatch(
+            {type: 'QUANTITY_UP', data: {...item, quantity: 1}},
+        );
     };
 
-    const onRemoveItem = () => {
-        
+    const onRemoveItem = (item) => () => {
+        dispatch(
+            {type: 'REMOVE_ITEM', data: item},
+        );
+    };
+
+    const onRemoveAll = (item) => () => {
+        dispatch(
+            {type: 'REMOVE_ALL', data: item},
+        );
     };
 
     const renderItem = ({ item }) => (
@@ -55,7 +66,7 @@ export default function Cart({navigation}) {
                     />
                     <View style={{flexDirection: 'column'}}>
                         <Text
-                            style={{fontSize: 14, fontWeight: 'bold', width: 200}}
+                            style={{fontSize: 14, fontWeight: '400', width: 200}}
                             ellipsizeMode="tail" numberOfLines={1}
                         >
                             {item.product_name}
@@ -65,7 +76,7 @@ export default function Cart({navigation}) {
                                 <AntDesign name="minuscircleo" size={20} color={'#fed734'}/>
                             </TouchableOpacity>
                             <Text style={{padding: 10, paddingTop: 0}}>{item?.quantity}</Text>
-                            <TouchableOpacity onPress={onChangeQuantity('redece', item)}>
+                            <TouchableOpacity onPress={onChangeQuantity('increase', item)}>
                                 <AntDesign name="pluscircle" size={20} color={'#fed734'}/>
                             </TouchableOpacity>
                         </View>
@@ -122,7 +133,15 @@ export default function Cart({navigation}) {
                 </View>
             </View> */}
             <View style={styles.Detail}>
-                <Text style={styles.Title}>Chi tiết đơn hàng</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={styles.Title}>Chi tiết đơn hàng</Text>
+                    {productList?.length ?
+                        <TouchableOpacity style={{padding: 5}} onPress={onRemoveAll}>
+                            <FontAwesome name="trash-o" size={25} color={'#fed734'}/>
+                        </TouchableOpacity> :
+                        <View/>
+                    }
+                </View>
                 <SafeAreaView>
                     <FlatList
                         data={productList}
@@ -130,6 +149,12 @@ export default function Cart({navigation}) {
                         keyExtractor={(item) => item._id?.toString()}
                         horizontal={false}
                     />
+                    {productList?.length ?
+                        <View/> :
+                        <View style={{ padding: 30, alignItems: 'center'}}>
+                            <Text>Chưa có sản phẩm</Text>
+                        </View>
+                    }
                 </SafeAreaView>
             </View>
             <View style={styles.Pay}>

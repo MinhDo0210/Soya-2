@@ -49,7 +49,7 @@ function RestStackScreen() {
       screenOptions={{
         headerShown: true,
       }}
-      initialRouteName={'Details'}
+      initialRouteName={'Restaurant'}
     >
       <RestStack.Screen name="Restaurant" component={RestaurantScreen} />
       <RestStack.Screen name="Details"  options={{ title: 'Chi tiết cửa hàng' }} component={DetaltRestScreen} />

@@ -60,7 +60,7 @@ const OrderDelivery = ({navigation,props}) => {
 
     const onSend = (item) => () => {
         dispatch(
-            {type: 'ADD_CART', data: item},
+            {type: 'ADD_CART', data: {...item, quantity: 1}},
         );
     };
 
