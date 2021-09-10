@@ -32,9 +32,15 @@ export default function Cart({navigation}) {
 
     const productList = useSelector((store) => store.cartReducer.products);
 
-    const onChangeQuantity = (item) => () => {
+    const onQuantityUp = (item) => () => {
         dispatch(
-            {type: 'QUANTITY_UP', data: {...item, quantity: 1}},
+            {type: 'QUANTITY_UP', data: item},
+        );
+    };
+
+    const onQuantityDown = (item) => () => {
+        dispatch(
+            {type: 'QUANTITY_DOWN', data: item},
         );
     };
 
@@ -50,10 +56,20 @@ export default function Cart({navigation}) {
         );
     };
 
+    function TotalPrice(price,tonggia){
+        return Number(price * tonggia).toLocaleString('en-US');
+    }
+
+    // const TotalCart=0;
+    // Object.keys(items.Carts).forEach(function(item){
+    //     TotalCart+=items.Carts[item].quantity * items.Carts[item].price;
+    //     ListCart.push(items.Carts[item]);
+    // });
+
     const renderItem = ({ item }) => (
         <View style={styles.Item}>
             <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'row', width: '85%'}}>
+                <View style={{flexDirection: 'row', width: '75%'}}>
                     <Image
                         style={{
                             height: 60,
@@ -72,18 +88,18 @@ export default function Cart({navigation}) {
                             {item.product_name}
                         </Text>
                         <View style={{flexDirection: 'row', paddingTop: 10}}>
-                            <TouchableOpacity onPress={onChangeQuantity('redece', item)}>
+                            <TouchableOpacity onPress={onQuantityDown(item)}>
                                 <AntDesign name="minuscircleo" size={20} color={'#fed734'}/>
                             </TouchableOpacity>
                             <Text style={{padding: 10, paddingTop: 0}}>{item?.quantity}</Text>
-                            <TouchableOpacity onPress={onChangeQuantity('increase', item)}>
+                            <TouchableOpacity onPress={onQuantityUp(item)}>
                                 <AntDesign name="pluscircle" size={20} color={'#fed734'}/>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <View style={{width: '15%', alignItems: 'flex-end'}}>
-                    <Text style={{fontSize: 14, color: '#68ac44'}}>{item.price}</Text>
+                <View style={{width: '25%', alignItems: 'flex-end'}}>
+                    <Text style={{fontSize: 14, color: '#68ac44'}}>{TotalPrice(item.price,item.quantity)} đ</Text>
                     <TouchableOpacity style={{padding: 10}} onPress={onRemoveItem(item)}>
                         <FontAwesome name="trash-o" size={25} color={'#fed734'}/>
                     </TouchableOpacity>

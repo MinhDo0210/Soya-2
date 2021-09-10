@@ -18,13 +18,32 @@ export default function cartReducer(state = initialState, action) {
             return {
                 products: productList,
             };
+        case 'QUANTITY_UP':
+            return {
+                products: state.products.map(e => e._id === action.data._id
+                            ? { ...e, quantity: e.quantity + 1}
+                            : e
+                        ),
+            };
+        case 'QUANTITY_DOWN':
+            return {
+                products: state.products.map(e => e._id === action.data._id
+                            ? { ...e, quantity: e.quantity !== 1 ? e.quantity - 1 : 1}
+                            : e
+                        ),
+            };
         case 'REMOVE_ITEM':
             return {
                 products: state.products?.filter(e => e?._id !== action.data?._id),
             };
         case 'REMOVE_ALL':
             return {
-                products: [],
+                ...state,
+                products: state.products.map(e=>
+                e.selected
+                    ? {...e, selected: false, quantity: 1}
+                    : e,
+                ),
             };
         default:
             return state;
