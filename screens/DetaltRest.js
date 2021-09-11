@@ -11,17 +11,10 @@ import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const DATA = [
-    {
-        id: '1',
-        name: 'Soya Garden – Hồ Đắc Di',
-        address: 'Số 3 Hồ Đắc Di, Quận Đống Đa, Hà Nội',
-        phone: '0776 333 693',
-        image: 'https://soyagarden.com/content/uploads/2019/10/70954832_3052108371530799_3695167124474429440_n.jpg',
-    },
-];
+import { useSelector, useDispatch } from 'react-redux';
 
 const Restaurant = ({ navigation }) => {
+    const detailRest = useSelector((store) => store.restReducer.items);
     return (
         <View style={styles.container}>
             {/* <View style={styles.Header}>

@@ -38,12 +38,7 @@ export default function cartReducer(state = initialState, action) {
             };
         case 'REMOVE_ALL':
             return {
-                ...state,
-                products: state.products.map(e=>
-                e.selected
-                    ? {...e, selected: false, quantity: 1}
-                    : e,
-                ),
+                products: [],
             };
         default:
             return state;

@@ -118,13 +118,12 @@ export default function Login({navigation}) {
                     <Text style={styles.TxtCode}>đến {phone}</Text>
                     <TextInput
                         style={{
-                        height: 45,
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#D8D8D8',
-                        borderRadius: 5,
-                        marginTop: 20,
-                        width: '100%',
-                        textAlign: 'center',
+                            height: 45,
+                            borderBottomWidth: 1,
+                            borderBottomColor: '#D8D8D8',
+                            borderRadius: 5,
+                            marginTop: 20,
+                            width: '100%',
                         }}
                         placeholder="Mã xác thực"
                         onChangeText={onChangeCode}

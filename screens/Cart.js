@@ -50,9 +50,9 @@ export default function Cart({navigation}) {
         );
     };
 
-    const onRemoveAll = (item) => () => {
+    const onRemoveAll = () => {
         dispatch(
-            {type: 'REMOVE_ALL', data: item},
+            {type: 'REMOVE_ALL'},
         );
     };
 
@@ -60,11 +60,9 @@ export default function Cart({navigation}) {
         return Number(price * tonggia).toLocaleString('en-US');
     }
 
-    // const TotalCart=0;
-    // Object.keys(items.Carts).forEach(function(item){
-    //     TotalCart+=items.Carts[item].quantity * items.Carts[item].price;
-    //     ListCart.push(items.Carts[item]);
-    // });
+    const TotalCart = productList.reduce((acc, ele) => acc + Number(ele.price * ele.quantity), 0);
+
+    const TotalItem = productList.reduce((acc, ele) => acc + Number(ele.quantity), 0);
 
     const renderItem = ({ item }) => (
         <View style={styles.Item}>
@@ -158,19 +156,32 @@ export default function Cart({navigation}) {
                         <View/>
                     }
                 </View>
-                <SafeAreaView>
+                <SafeAreaView style={{flex: 1}}>
                     <FlatList
                         data={productList}
                         renderItem={renderItem}
                         keyExtractor={(item) => item._id?.toString()}
                         horizontal={false}
+                        ListFooterComponent={
+                            <View>
+                                {productList?.length ?
+                                    <View style={styles.TotalCart}>
+                                        <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10}}>
+                                            <Text style={styles.TxtTotal}>Số lượng: </Text>
+                                            <Text style={styles.TxtPrice}>{TotalItem}</Text>
+                                        </View>
+                                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                            <Text style={styles.TxtTotal}>Tổng cộng: </Text>
+                                            <Text style={styles.TxtPrice}>{TotalCart} đ</Text>
+                                        </View>
+                                    </View> :
+                                    <View style={{ padding: 30, alignItems: 'center'}}>
+                                        <Text>Chưa có sản phẩm</Text>
+                                    </View>
+                                }
+                            </View>
+                        }
                     />
-                    {productList?.length ?
-                        <View/> :
-                        <View style={{ padding: 30, alignItems: 'center'}}>
-                            <Text>Chưa có sản phẩm</Text>
-                        </View>
-                    }
                 </SafeAreaView>
             </View>
             <View style={styles.Pay}>
@@ -263,5 +274,21 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         textTransform: 'uppercase',
+    },
+    TotalCart: {
+        padding: 10,
+        borderTopColor: 'gray',
+        borderTopWidth: 1,
+        flexDirection: 'column',
+        marginTop: 10,
+    },
+    TxtTotal: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    TxtPrice: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#68ac44',
     },
 });

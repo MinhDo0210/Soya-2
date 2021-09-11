@@ -11,8 +11,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {getRestaurantList} from '../services/Api';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Restaurant = ({navigation}) => {
+    const dispatch = useDispatch();
     const [restaurant, setRestaurant] = useState([]);
 
     useEffect(() => {
@@ -28,9 +30,16 @@ const Restaurant = ({navigation}) => {
 		callGetRestaurantList();
 	}, []);
 
+    const Detail = (item) => {
+        navigation.navigate('Details');
+        dispatch(
+            {type: 'DETAIL_REST', data: item},
+        );
+    };
+
     const renderItem = ({ item }) => (
         <View style={styles.Item}>
-            <TouchableOpacity onPress={() => navigation.navigate('Details')}>
+            <TouchableOpacity onPress={(Detail)}>
                 <View style={{height: 170}}>
                     <Image
                         style={{

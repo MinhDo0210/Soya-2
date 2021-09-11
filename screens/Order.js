@@ -127,7 +127,7 @@ const OrderDelivery = ({navigation,props}) => {
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{ width: 150, fontSize: 14, paddingTop: 5, paddingBottom: 15, color: 'gray'}}>
-                        {item.price}
+                        {item.price} đ
                     </Text>
                     <TouchableOpacity onPress={onSend(item)}>
                         <AntDesign name="pluscircle" size={23} color={'#fed734'}/>
