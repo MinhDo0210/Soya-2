@@ -165,16 +165,7 @@ export default function Cart({navigation}) {
                         ListFooterComponent={
                             <View>
                                 {productList?.length ?
-                                    <View style={styles.TotalCart}>
-                                        <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10}}>
-                                            <Text style={styles.TxtTotal}>Số lượng: </Text>
-                                            <Text style={styles.TxtPrice}>{TotalItem}</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                            <Text style={styles.TxtTotal}>Tổng cộng: </Text>
-                                            <Text style={styles.TxtPrice}>{TotalCart} đ</Text>
-                                        </View>
-                                    </View> :
+                                    null :
                                     <View style={{ padding: 30, alignItems: 'center'}}>
                                         <Text>Chưa có sản phẩm</Text>
                                     </View>
@@ -183,6 +174,20 @@ export default function Cart({navigation}) {
                         }
                     />
                 </SafeAreaView>
+                <View>
+                    {productList?.length ?
+                        <View style={styles.TotalCart}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10}}>
+                                <Text style={styles.TxtTotal}>Số lượng: </Text>
+                                <Text style={styles.TxtPrice}>{TotalItem}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Text style={styles.TxtTotal}>Tổng cộng: </Text>
+                                <Text style={styles.TxtPrice}>{TotalCart} đ</Text>
+                            </View>
+                        </View> : null
+                    }
+                </View>
             </View>
             <View style={styles.Pay}>
                 <TouchableOpacity style={styles.BtnNext}>
@@ -254,6 +259,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 12,
         padding: 10,
         flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
     Item: {
         padding: 15,
