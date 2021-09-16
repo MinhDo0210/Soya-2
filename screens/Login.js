@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     },
     Banner: {
         alignItems: 'center',
-        paddingTop: 10,
+        paddingTop: 50,
         padding: 20,
     },
     BtnFb: {

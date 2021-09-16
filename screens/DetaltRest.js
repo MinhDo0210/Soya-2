@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import { icons } from '../contants';
 
@@ -11,10 +11,14 @@ import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {getRestaurantList} from '../services/Api';
+
 import { useSelector, useDispatch } from 'react-redux';
 
-const Restaurant = ({ navigation }) => {
-    const detailRest = useSelector((store) => store.restReducer.items);
+const Restaurant = ({ route, navigation }) => {
+    const { detail } = route.params;
+    console.tron.log('detail', detail);
+
     return (
         <View style={styles.container}>
             {/* <View style={styles.Header}>
@@ -27,11 +31,11 @@ const Restaurant = ({ navigation }) => {
             <View style={styles.Content}>
                 <View style={styles.Item}>
                     <View style={styles.Name}>
-                        <Text style={styles.Nametxt}>Soya Garden - Hoàng Đạo Thùy</Text>
+                        <Text style={styles.Nametxt}>{detail?.name}</Text>
                     </View>
                     <View style={styles.Time}>
                         <Material name="clock-time-eight-outline" size={21} color={'black'}/>
-                        <Text style={{fontSize: 17, paddingLeft: 4}}>08:00 - 23:00 (Đang mở cửa)</Text>
+                        <Text style={{fontSize: 17, paddingLeft: 4}}>{detail?.opening_time} - {detail?.closing_time} (Đang mở cửa)</Text>
                     </View>
                     <View style={{height: 170}}>
                         <Image
@@ -39,17 +43,26 @@ const Restaurant = ({ navigation }) => {
                                 height: 170,
                                 borderRadius: 10,
                             }}
-                            source={{uri:'https://soyagarden.com/content/uploads/2019/10/70954832_3052108371530799_3695167124474429440_n.jpg'}}
+                            source={{uri: detail?.image_1}}
                         />
                     </View>
                     <View style={styles.Info}>
                         <View style={styles.InfoText}>
                             <Ionicons name="ios-location-outline" size={20} color={'black'}/>
-                            <Text style={{fontSize: 16, paddingLeft: 4, color: 'gray'}}>Số 3 Hồ Đắc Di, Quận Đống Đa, Hà Nội</Text>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    paddingLeft: 4,
+                                    color: 'gray',
+                                }}
+                                ellipsizeMode="tail" numberOfLines={1}
+                                >
+                                    {detail?.address.full_address}
+                                </Text>
                         </View>
                         <View style={styles.InfoText}>
                             <Feather name="phone-call" size={17} color={'black'}/>
-                            <Text style={{fontSize: 16, paddingLeft: 6, color: '#68ac44'}}>0776 333 693</Text>
+                            <Text style={{fontSize: 16, paddingLeft: 6, color: '#68ac44'}}>{detail?.phone}</Text>
                         </View>
                     </View>
                 </View>

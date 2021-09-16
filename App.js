@@ -53,7 +53,7 @@ function RestStackScreen() {
     >
       <RestStack.Screen name="Restaurant" component={RestaurantScreen} />
       <RestStack.Screen name="Details"  options={{ title: 'Chi tiết cửa hàng' }} component={DetaltRestScreen} />
-      <RestStack.Screen name="Order" options={{ title: 'Soya Garden – Rainbow Linh Đàm' }} component={OrderScreen} />
+      <RestStack.Screen name="Order" options={{ title: 'Chọn món' }} component={OrderScreen} />
       <RestStack.Screen name="Cart" options={{ title: 'Đơn hàng' }} component={CartScreen} />
     </RestStack.Navigator>
   );
@@ -81,60 +81,75 @@ function AccountStackScreen() {
       initialRouteName={'Account'}
     >
       <RestStack.Screen name="Account" options={{ title: 'Khác' }} component={AccountScreen} />
-      <RestStack.Screen name="Login"  component={LoginScreen} />
-      <RestStack.Screen name="Info" options={{ title: 'Thông tin cá nhân' }} component={InfoScreen} />
+      {/* <RestStack.Screen name="Login"  component={LoginScreen} /> */}
+      {/* <RestStack.Screen name="Info" options={{ title: 'Thông tin cá nhân' }} component={InfoScreen} /> */}
     </RestStack.Navigator>
   );
 }
 
+const TabBar = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#68ac44',
+      }}
+      initialRouteName={'Trang chủ'}
+    >
+      <Tab.Screen
+        name="Trang chủ"
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Material name="home" color={color} size={25} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cửa hàng"
+        component={RestStackScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Material name="storefront-outline" color={color} size={25} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Thông báo"
+        component={MessageStackScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="bell" color={color} size={25} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Khác"
+        component={AccountStackScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="dots-three-horizontal" color={color} size={25} />
+          ),
+        }}
+      />
+  </Tab.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer initialRouteName={'Login'}>
-        <Tab.Navigator
+      <NavigationContainer>
+        <RestStack.Navigator
           screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: '#68ac44',
           }}
-          initialRouteName={'Trang chủ'}
+          initialRouteName={'TabScreen'}
         >
-          <Tab.Screen
-            name="Trang chủ"
-            component={HomeStackScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Material name="home" color={color} size={25} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Cửa hàng"
-            component={RestStackScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Material name="storefront-outline" color={color} size={25} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Thông báo"
-            component={MessageStackScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Feather name="bell" color={color} size={25} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Khác"
-            component={AccountStackScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Entypo name="dots-three-horizontal" color={color} size={25} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
+          <RestStack.Screen name="Login"  component={LoginScreen} />
+          <RestStack.Screen name="Info" options={{ title: 'Thông tin cá nhân' }} component={InfoScreen} />
+          <RestStack.Screen name="TabScreen" component={TabBar} />
+        </RestStack.Navigator>
       </NavigationContainer>
     </Provider>
   );

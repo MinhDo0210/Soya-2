@@ -11,10 +11,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {getRestaurantList} from '../services/Api';
-import { useSelector, useDispatch } from 'react-redux';
 
-const Restaurant = ({navigation}) => {
-    const dispatch = useDispatch();
+const Restaurant = ({route, navigation}) => {
     const [restaurant, setRestaurant] = useState([]);
 
     useEffect(() => {
@@ -30,16 +28,13 @@ const Restaurant = ({navigation}) => {
 		callGetRestaurantList();
 	}, []);
 
-    const Detail = (item) => {
-        navigation.navigate('Details');
-        dispatch(
-            {type: 'DETAIL_REST', data: item},
-        );
-    };
+    const onMoveToDetail = (data) => () => {
+		navigation.navigate('Details', { detail: data });
+	};
 
     const renderItem = ({ item }) => (
         <View style={styles.Item}>
-            <TouchableOpacity onPress={(Detail)}>
+            <TouchableOpacity onPress={onMoveToDetail(item)}>
                 <View style={{height: 170}}>
                     <Image
                         style={{
@@ -77,7 +72,7 @@ const Restaurant = ({navigation}) => {
                 </View>
                 <View style={styles.Time}>
                     <Material name="clock-time-eight-outline" size={21} color={'black'}/>
-                    <Text style={{fontSize: 17, paddingLeft: 4}}>08:00 - 23:00 (Đang mở cửa)</Text>
+                    <Text style={{fontSize: 17, paddingLeft: 4}}>{item.opening_time} - {item.closing_time} (Đang mở cửa)</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -88,7 +83,7 @@ const Restaurant = ({navigation}) => {
             <View style={styles.Header}>
                 <View style={styles.Search}>
                     <EvilIcons style={{ padding: 5}} name="search" size={30} color={'black'}/>
-                    <TextInput style={{width: '100%', padding: 0,}} placeholder="Tìm kiếm cửa hàng"/>
+                    <TextInput style={{width: '100%', padding: 0}} placeholder="Tìm kiếm cửa hàng"/>
                 </View>
                 <Material style={{padding: 10}} name="telegram" size={30} color={'gray'}/>
             </View>
@@ -96,7 +91,7 @@ const Restaurant = ({navigation}) => {
                 <FlatList
                     data={restaurant}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.id?.toString()}
                 />
             </View>
         </View>

@@ -13,7 +13,7 @@ export default function Info({navigation}) {
     const [address, setAddress] = useState('');
 
     const onSend = (item) => {
-        navigation.navigate('Trang chủ');
+        navigation.navigate('TabScreen');
         dispatch(
             {type: 'SEND_NAME', data: name},
         );

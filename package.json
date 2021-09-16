@@ -5,11 +5,13 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "tron": "adb reverse tcp:9090 tcp:9090",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -25,7 +27,8 @@
     "react-native-screens": "^3.6.0",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-vector-icons": "^8.1.0",
-    "react-redux": "^7.2.5"
+    "react-redux": "^7.2.5",
+    "reactotron-react-native": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.15.0",

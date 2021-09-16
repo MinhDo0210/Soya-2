@@ -4,10 +4,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
-import { View, Text, ScrollView, SafeAreaView, FlatList, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, ActivityIndicator, SafeAreaView, FlatList, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { COLORS, images, icons } from '../contants';
 import { useSelector, useDispatch } from 'react-redux';
-import Modal from 'react-native-modal';
 
 import { getProductList, getCategoryList } from '../services/Api';
 
